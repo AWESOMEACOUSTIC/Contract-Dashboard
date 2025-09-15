@@ -195,7 +195,7 @@ const getStatusColor = (status: string) => {
         </div>
         <button 
           onClick={() => setIsNewContractModalOpen(true)}
-          className="mt-4 sm:mt-0 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 flex items-center space-x-2 shadow-lg"
+          className="mt-4 sm:mt-0 px-6 py-3  bg-gradient-to-r from-purple-600 to-violet-700 text-white rounded-xl  hover:from-purple-700 hover:to-violet-800 transition-all duration-200 flex items-center space-x-2 shadow-lg"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -242,23 +242,23 @@ const getStatusColor = (status: string) => {
             {/* Progress Bars */}
             <div className="mb-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-gray-400 text-xs">Growth Rate</span>
-                <span className="text-orange-400 text-xs font-medium">{stats.totalGrowthPercentage}% maturity</span>
+                <span className="text-[#c6a9f5] text-xs">Growth Rate</span>
+                <span className="text-[#c6a9f5] text-xs font-medium">{stats.totalGrowthPercentage}% maturity</span>
               </div>
               <div className="flex space-x-1 mb-3">
                 {Array.from({ length: 20 }, (_, i) => (
                   <div
                     key={i}
                     className={`h-8 w-2 rounded-sm ${
-                      i < Math.round((stats.totalGrowthPercentage / 100) * 20) ? 'bg-orange-500' : 'bg-gray-700'
+                      i < Math.round((stats.totalGrowthPercentage / 100) * 20) ? 'bg-[#c6a9f5]' : 'bg-gray-700'
                     }`}
                   />
                 ))}
               </div>
-              <div className="text-orange-400 text-sm">
+              <div className="text-[#c6a9f5] text-sm">
                 <span>Unlock at</span>
                 <br />
-                <span className="text-orange-300">December 20, 2025</span>
+                <span className="text-[#d7c2f9] font-bold">December 20, 2025</span>
               </div>
             </div>
           </div>
@@ -316,7 +316,7 @@ const getStatusColor = (status: string) => {
               <div className="text-green-400 text-sm">
                 <span>Performance</span>
                 <br />
-                <span className="text-green-300">Excellent Status</span>
+                <span className="text-green-300 font-bold">Excellent Status</span>
               </div>
             </div>
           </div>
@@ -374,7 +374,7 @@ const getStatusColor = (status: string) => {
               <div className="text-orange-400 text-sm">
                 <span>Action Required</span>
                 <br />
-                <span className="text-orange-300">Next 30 Days</span>
+                <span className="text-orange-300 font-bold">Next 30 Days</span>
               </div>
             </div>
           </div>
@@ -432,7 +432,7 @@ const getStatusColor = (status: string) => {
               <div className="text-red-400 text-sm">
                 <span>Review Required</span>
                 <br />
-                <span className="text-red-300">Immediate Action</span>
+                <span className="text-red-300 font-bold">Immediate Action</span>
               </div>
             </div>
           </div>
@@ -578,8 +578,9 @@ const getStatusColor = (status: string) => {
                       <td className="px-6 py-4 whitespace-nowrap text-right">
                         <div className="flex items-center justify-end space-x-2">
                           <Link 
-                            to={`/contracts/${contract.id}`}
+                            to={`/insights/${contract.id}`}
                             className="p-2 text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 rounded-lg transition-colors"
+                            title="View Contract Insights"
                           >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />

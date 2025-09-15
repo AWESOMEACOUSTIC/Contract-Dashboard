@@ -30,11 +30,11 @@ export default function EvidenceDrawer({ evidence, isOpen, onClose }: EvidenceDr
       />
       
       {/* Drawer */}
-      <div className={`fixed right-0 top-0 h-full w-full max-w-2xl bg-[#06070d] border-l border-[#2a2d47] z-50 transform transition-transform duration-300 ease-in-out ${
+      <div className={`fixed right-0 top-0 h-full w-full max-w-2xl bg-[#06070d] border-l border-[#2a2d47] z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${
         isOpen ? 'translate-x-0' : 'translate-x-full'
       }`}>
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-[#2a2d47]">
+        <div className="flex items-center justify-between p-6 border-b border-[#2a2d47] flex-shrink-0">
           <div>
             <h2 className="text-xl font-semibold text-white">Evidence Panel</h2>
             <p className="text-gray-400 text-sm mt-1">
@@ -51,8 +51,9 @@ export default function EvidenceDrawer({ evidence, isOpen, onClose }: EvidenceDr
           </button>
         </div>
 
-        {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6">
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800 hover:scrollbar-thumb-gray-500">
+          <div className="p-6">
           {evidence.length === 0 ? (
             <div className="text-center py-12">
               <svg className="w-12 h-12 text-gray-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -119,6 +120,7 @@ export default function EvidenceDrawer({ evidence, isOpen, onClose }: EvidenceDr
               ))}
             </div>
           )}
+          </div>
         </div>
       </div>
     </>

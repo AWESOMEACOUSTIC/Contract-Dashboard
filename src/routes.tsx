@@ -53,6 +53,10 @@ const routes: RouteObject[] = [
                 element: <InsightsPage />
               },
               {
+                path: 'insights/:contractId',
+                element: <InsightsPage />
+              },
+              {
                 path: 'reports',
                 element: <ReportsPage />
               },

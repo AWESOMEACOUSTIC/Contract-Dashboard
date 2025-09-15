@@ -9,7 +9,6 @@ export default function DashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const location = useLocation()
 
-  // Dynamic placeholder text based on current page
   const getSearchPlaceholder = () => {
     switch (location.pathname) {
       case '/contracts':
@@ -58,7 +57,7 @@ export default function DashboardLayout() {
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
         <div 
-          className="fixed inset-0 z-40 bg-gray-600 bg-opacity-50 lg:hidden"
+          className="fixed inset-0 z-40 blur-md bg-opacity-90 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
