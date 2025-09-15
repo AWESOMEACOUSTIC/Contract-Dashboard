@@ -99,5 +99,255 @@
       { "source": "Section 6.1", "snippet": "Pricing may be adjusted annually based on Consumer Price Index.", "relevance": 0.89 },
       { "source": "Section 11.4", "snippet": "Customer data will be made available for export within 30 days of termination.", "relevance": 0.81 }
     ]
+  },
+  {
+    "id": "c5",
+    "name": "Marketing Services Agreement",
+    "parties": "Digital Marketing Pro & ABC Corp",
+    "start": "2024-06-01",
+    "expiry": "2025-05-31",
+    "status": "Active",
+    "risk": "Low",
+    "clauses": [
+      { "title": "Performance Metrics", "summary": "ROI guarantees and KPI targets.", "confidence": 0.91 },
+      { "title": "Creative Ownership", "summary": "ABC Corp owns all campaign materials.", "confidence": 0.88 },
+      { "title": "Termination Clause", "summary": "30-day notice for termination.", "confidence": 0.85 },
+      { "title": "Payment Schedule", "summary": "Monthly retainer plus performance bonuses.", "confidence": 0.90 }
+    ],
+    "insights": [
+      { "risk": "Low", "message": "Performance guarantees provide measurable value." },
+      { "risk": "Low", "message": "Flexible termination terms allow easy exit." },
+      { "risk": "Medium", "message": "Performance bonuses could increase costs significantly." }
+    ],
+    "evidence": [
+      { "source": "Section 3.2", "snippet": "Guaranteed minimum 300% ROI on advertising spend.", "relevance": 0.92 },
+      { "source": "Section 7.1", "snippet": "All creative works become property of ABC Corp upon payment.", "relevance": 0.89 },
+      { "source": "Section 9.3", "snippet": "Either party may terminate with 30 days written notice.", "relevance": 0.86 }
+    ]
+  },
+  {
+    "id": "c6",
+    "name": "Legal Services Retainer",
+    "parties": "Morrison & Associates Law Firm & ABC Corp",
+    "start": "2023-09-01",
+    "expiry": "2025-08-31",
+    "status": "Renewal Due",
+    "risk": "Medium",
+    "clauses": [
+      { "title": "Retainer Agreement", "summary": "Monthly retainer for general counsel services.", "confidence": 0.94 },
+      { "title": "Confidentiality", "summary": "Attorney-client privilege protection.", "confidence": 0.97 },
+      { "title": "Scope of Work", "summary": "Corporate law, contracts, and compliance.", "confidence": 0.89 },
+      { "title": "Additional Services", "summary": "Litigation services billed separately.", "confidence": 0.86 }
+    ],
+    "insights": [
+      { "risk": "Medium", "message": "Contract expires in 2 months, renewal needed." },
+      { "risk": "High", "message": "No cap on additional litigation fees." },
+      { "risk": "Low", "message": "Strong confidentiality protections in place." }
+    ],
+    "evidence": [
+      { "source": "Section 2.1", "snippet": "Monthly retainer of $15,000 for 40 hours of legal services.", "relevance": 0.95 },
+      { "source": "Section 4.3", "snippet": "All communications protected by attorney-client privilege.", "relevance": 0.98 },
+      { "source": "Section 5.2", "snippet": "Litigation matters billed at $450 per hour plus expenses.", "relevance": 0.87 }
+    ]
+  },
+  {
+    "id": "c7",
+    "name": "Equipment Lease Agreement",
+    "parties": "TechLease Corp & ABC Corp",
+    "start": "2024-02-01",
+    "expiry": "2027-01-31",
+    "status": "Active",
+    "risk": "High",
+    "clauses": [
+      { "title": "Equipment Specifications", "summary": "High-end server and networking equipment.", "confidence": 0.92 },
+      { "title": "Maintenance Responsibility", "summary": "Lessee responsible for all maintenance.", "confidence": 0.88 },
+      { "title": "Early Termination", "summary": "Penalty equal to 50% of remaining payments.", "confidence": 0.91 },
+      { "title": "Purchase Option", "summary": "Option to buy at fair market value.", "confidence": 0.84 }
+    ],
+    "insights": [
+      { "risk": "High", "message": "Severe early termination penalties create financial exposure." },
+      { "risk": "High", "message": "Full maintenance responsibility increases operational costs." },
+      { "risk": "Medium", "message": "Purchase option pricing may be disputed." }
+    ],
+    "evidence": [
+      { "source": "Section 6.2", "snippet": "Early termination requires payment of 50% of all remaining lease payments.", "relevance": 0.93 },
+      { "source": "Section 4.1", "snippet": "Lessee bears full responsibility for equipment maintenance and repairs.", "relevance": 0.90 },
+      { "source": "Section 8.3", "snippet": "Purchase option available at fair market value as determined by independent appraisal.", "relevance": 0.85 }
+    ]
+  },
+  {
+    "id": "c8",
+    "name": "Cybersecurity Services Contract",
+    "parties": "SecureNet Solutions & ABC Corp",
+    "start": "2024-04-01",
+    "expiry": "2026-03-31",
+    "status": "Active",
+    "risk": "Low",
+    "clauses": [
+      { "title": "24/7 Monitoring", "summary": "Continuous threat monitoring and response.", "confidence": 0.95 },
+      { "title": "Incident Response", "summary": "4-hour response time for critical incidents.", "confidence": 0.89 },
+      { "title": "Compliance Support", "summary": "SOX and PCI DSS compliance assistance.", "confidence": 0.92 },
+      { "title": "Liability Coverage", "summary": "Up to $5M coverage for security breaches.", "confidence": 0.87 }
+    ],
+    "insights": [
+      { "risk": "Low", "message": "Comprehensive coverage reduces security risks." },
+      { "risk": "Low", "message": "Strong SLA with fast incident response times." },
+      { "risk": "Medium", "message": "Liability cap may not cover all potential damages." }
+    ],
+    "evidence": [
+      { "source": "Section 2.1", "snippet": "Provider monitors customer network 24/7/365 for security threats.", "relevance": 0.96 },
+      { "source": "Section 3.2", "snippet": "Critical incidents will receive response within 4 hours.", "relevance": 0.91 },
+      { "source": "Section 7.1", "snippet": "Provider liability capped at $5,000,000 for security incidents.", "relevance": 0.88 }
+    ]
+  },
+  {
+    "id": "c9",
+    "name": "Office Space Lease",
+    "parties": "Downtown Properties LLC & ABC Corp",
+    "start": "2023-01-01",
+    "expiry": "2028-12-31",
+    "status": "Active",
+    "risk": "Medium",
+    "clauses": [
+      { "title": "Rent Escalation", "summary": "3% annual rent increases.", "confidence": 0.93 },
+      { "title": "Subletting Rights", "summary": "Subletting allowed with landlord approval.", "confidence": 0.86 },
+      { "title": "Maintenance Obligations", "summary": "Tenant responsible for interior maintenance.", "confidence": 0.90 },
+      { "title": "Early Termination", "summary": "6-month penalty for early exit.", "confidence": 0.88 }
+    ],
+    "insights": [
+      { "risk": "Medium", "message": "Fixed 3% annual increases may exceed market rates." },
+      { "risk": "Medium", "message": "Subletting approval process could delay revenue opportunities." },
+      { "risk": "Low", "message": "Reasonable early termination penalty provides flexibility." }
+    ],
+    "evidence": [
+      { "source": "Section 4.2", "snippet": "Base rent shall increase by 3% on each anniversary date.", "relevance": 0.94 },
+      { "source": "Section 12.1", "snippet": "Subletting permitted with prior written consent of landlord.", "relevance": 0.87 },
+      { "source": "Section 15.3", "snippet": "Early termination penalty equal to 6 months base rent.", "relevance": 0.89 }
+    ]
+  },
+  {
+    "id": "c10",
+    "name": "Supply Chain Management System",
+    "parties": "LogiTech Systems & ABC Corp",
+    "start": "2024-08-01",
+    "expiry": "2027-07-31",
+    "status": "Active",
+    "risk": "High",
+    "clauses": [
+      { "title": "Implementation Timeline", "summary": "12-month implementation schedule.", "confidence": 0.85 },
+      { "title": "Data Migration", "summary": "Provider handles all data migration.", "confidence": 0.82 },
+      { "title": "Performance Guarantees", "summary": "System uptime and processing speed guarantees.", "confidence": 0.91 },
+      { "title": "Penalty Clauses", "summary": "Significant penalties for implementation delays.", "confidence": 0.89 }
+    ],
+    "insights": [
+      { "risk": "High", "message": "Complex implementation carries high risk of delays and cost overruns." },
+      { "risk": "High", "message": "Data migration risks could disrupt business operations." },
+      { "risk": "Medium", "message": "Performance guarantees provide protection but may be difficult to enforce." }
+    ],
+    "evidence": [
+      { "source": "Section 3.1", "snippet": "System implementation must be completed within 12 months of contract signing.", "relevance": 0.86 },
+      { "source": "Section 5.2", "snippet": "Provider guarantees 99.5% system uptime and sub-second response times.", "relevance": 0.92 },
+      { "source": "Section 8.4", "snippet": "Implementation delays beyond 14 months trigger 10% penalty per month.", "relevance": 0.90 }
+    ]
+  },
+  {
+    "id": "c11",
+    "name": "HR Management Software License",
+    "parties": "PeopleFirst Software & ABC Corp",
+    "start": "2024-01-01",
+    "expiry": "2025-12-31",
+    "status": "Renewal Due",
+    "risk": "Low",
+    "clauses": [
+      { "title": "User Licensing", "summary": "Per-employee monthly licensing model.", "confidence": 0.94 },
+      { "title": "Data Backup", "summary": "Daily automated backups included.", "confidence": 0.91 },
+      { "title": "Integration Support", "summary": "API access for payroll system integration.", "confidence": 0.87 },
+      { "title": "Training Services", "summary": "Unlimited online training for administrators.", "confidence": 0.89 }
+    ],
+    "insights": [
+      { "risk": "Low", "message": "Flexible licensing model scales with business growth." },
+      { "risk": "Low", "message": "Strong data protection and backup capabilities." },
+      { "risk": "Medium", "message": "Contract renewal needed within 3 months." }
+    ],
+    "evidence": [
+      { "source": "Section 2.3", "snippet": "Licensing fee calculated at $25 per employee per month.", "relevance": 0.95 },
+      { "source": "Section 6.1", "snippet": "System performs daily automated backups with 7-year retention.", "relevance": 0.92 },
+      { "source": "Section 4.2", "snippet": "RESTful API access included for third-party integrations.", "relevance": 0.88 }
+    ]
+  },
+  {
+    "id": "c12",
+    "name": "Business Insurance Policy",
+    "parties": "Reliable Insurance Group & ABC Corp",
+    "start": "2024-07-01",
+    "expiry": "2025-06-30",
+    "status": "Active",
+    "risk": "Medium",
+    "clauses": [
+      { "title": "Coverage Limits", "summary": "$10M general liability, $5M cyber liability.", "confidence": 0.96 },
+      { "title": "Exclusions", "summary": "Standard exclusions for intentional acts.", "confidence": 0.88 },
+      { "title": "Claims Process", "summary": "30-day notification requirement for claims.", "confidence": 0.92 },
+      { "title": "Premium Adjustments", "summary": "Annual premium review based on claims history.", "confidence": 0.85 }
+    ],
+    "insights": [
+      { "risk": "Medium", "message": "Coverage limits may be insufficient for major incidents." },
+      { "risk": "Medium", "message": "Premium increases likely due to industry-wide cyber threats." },
+      { "risk": "Low", "message": "Comprehensive coverage for most business risks." }
+    ],
+    "evidence": [
+      { "source": "Schedule A", "snippet": "General liability coverage limit: $10,000,000 per occurrence.", "relevance": 0.97 },
+      { "source": "Section 12.2", "snippet": "Insured must notify carrier within 30 days of any potential claim.", "relevance": 0.93 },
+      { "source": "Section 8.1", "snippet": "Premiums subject to annual adjustment based on loss experience.", "relevance": 0.86 }
+    ]
+  },
+  {
+    "id": "c13",
+    "name": "Consulting Services Agreement",
+    "parties": "Strategic Business Advisors & ABC Corp",
+    "start": "2024-09-01",
+    "expiry": "2025-02-28",
+    "status": "Active",
+    "risk": "Low",
+    "clauses": [
+      { "title": "Scope of Work", "summary": "Digital transformation strategy and implementation.", "confidence": 0.89 },
+      { "title": "Deliverables", "summary": "Monthly reports and quarterly strategy reviews.", "confidence": 0.91 },
+      { "title": "Intellectual Property", "summary": "Joint ownership of developed methodologies.", "confidence": 0.84 },
+      { "title": "Termination Rights", "summary": "Either party can terminate with 14 days notice.", "confidence": 0.93 }
+    ],
+    "insights": [
+      { "risk": "Low", "message": "Short-term engagement reduces long-term commitment risk." },
+      { "risk": "Medium", "message": "Joint IP ownership could complicate future use." },
+      { "risk": "Low", "message": "Flexible termination clause provides easy exit." }
+    ],
+    "evidence": [
+      { "source": "Statement of Work", "snippet": "Consultant will develop comprehensive digital transformation roadmap.", "relevance": 0.90 },
+      { "source": "Section 7.3", "snippet": "Methodologies developed jointly shall be co-owned by both parties.", "relevance": 0.85 },
+      { "source": "Section 11.1", "snippet": "Agreement may be terminated by either party with 14 days written notice.", "relevance": 0.94 }
+    ]
+  },
+  {
+    "id": "c14",
+    "name": "Telecommunications Service Contract",
+    "parties": "GlobalComm Networks & ABC Corp",
+    "start": "2023-03-01",
+    "expiry": "2026-02-28",
+    "status": "Expired",
+    "risk": "High",
+    "clauses": [
+      { "title": "Service Level Agreement", "summary": "99.9% uptime guarantee with penalties.", "confidence": 0.93 },
+      { "title": "Bandwidth Allocation", "summary": "Dedicated 1Gbps connection with burst capability.", "confidence": 0.90 },
+      { "title": "Contract Renewal", "summary": "Auto-renewal unless 90 days notice given.", "confidence": 0.87 },
+      { "title": "Early Termination Fee", "summary": "Remaining contract value as termination fee.", "confidence": 0.91 }
+    ],
+    "insights": [
+      { "risk": "High", "message": "Contract has expired, potential service interruption risk." },
+      { "risk": "High", "message": "Auto-renewal clause may have triggered unintended renewal." },
+      { "risk": "Medium", "message": "High early termination fees limit flexibility." }
+    ],
+    "evidence": [
+      { "source": "Section 2.1", "snippet": "Provider guarantees 99.9% network availability measured monthly.", "relevance": 0.94 },
+      { "source": "Section 9.2", "snippet": "Contract automatically renews for 3-year terms unless terminated with 90 days notice.", "relevance": 0.88 },
+      { "source": "Section 10.3", "snippet": "Early termination fee equals total remaining monthly charges.", "relevance": 0.92 }
+    ]
   }
 ]

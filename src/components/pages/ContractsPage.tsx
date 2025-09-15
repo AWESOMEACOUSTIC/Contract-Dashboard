@@ -30,8 +30,28 @@ export default function ContractsPage() {
     const expired = contracts.filter(c => c.status === 'Expired').length
     const renewalDue = contracts.filter(c => c.status === 'Renewal Due').length
     const highRisk = contracts.filter(c => c.risk === 'High').length
+    const lowRisk = contracts.filter(c => c.risk === 'Low').length
+    const mediumRisk = contracts.filter(c => c.risk === 'Medium').length
     
-    return { total, active, expired, renewalDue, highRisk }
+    // Calculate percentages
+    const activePercentage = total > 0 ? Math.round((active / total) * 100) : 0
+    const renewalPercentage = total > 0 ? Math.round((renewalDue / total) * 100) : 0
+    const highRiskPercentage = total > 0 ? Math.round((highRisk / total) * 100) : 0
+    const totalGrowthPercentage = 75 // This could be calculated based on historical data
+    
+    return { 
+      total, 
+      active, 
+      expired, 
+      renewalDue, 
+      highRisk, 
+      lowRisk, 
+      mediumRisk,
+      activePercentage,
+      renewalPercentage,
+      highRiskPercentage,
+      totalGrowthPercentage
+    }
   }, [contracts])
 
   // Filter and sort contracts
@@ -191,14 +211,14 @@ export default function ContractsPage() {
             <div className="mb-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-gray-400 text-xs">Growth Rate</span>
-                <span className="text-orange-400 text-xs font-medium">75% maturity</span>
+                <span className="text-orange-400 text-xs font-medium">{stats.totalGrowthPercentage}% maturity</span>
               </div>
               <div className="flex space-x-1 mb-3">
                 {Array.from({ length: 20 }, (_, i) => (
                   <div
                     key={i}
                     className={`h-8 w-2 rounded-sm ${
-                      i < 15 ? 'bg-orange-500' : 'bg-gray-700'
+                      i < Math.round((stats.totalGrowthPercentage / 100) * 20) ? 'bg-orange-500' : 'bg-gray-700'
                     }`}
                   />
                 ))}
@@ -249,14 +269,14 @@ export default function ContractsPage() {
             <div className="mb-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-gray-400 text-xs">Active Rate</span>
-                <span className="text-green-400 text-xs font-medium">88% active</span>
+                <span className="text-green-400 text-xs font-medium">{stats.activePercentage}% active</span>
               </div>
               <div className="flex space-x-1 mb-3">
                 {Array.from({ length: 20 }, (_, i) => (
                   <div
                     key={i}
                     className={`h-8 w-2 rounded-sm ${
-                      i < 17 ? 'bg-green-500' : 'bg-gray-700'
+                      i < Math.round((stats.activePercentage / 100) * 20) ? 'bg-green-500' : 'bg-gray-700'
                     }`}
                   />
                 ))}
@@ -307,14 +327,14 @@ export default function ContractsPage() {
             <div className="mb-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-gray-400 text-xs">Renewal Status</span>
-                <span className="text-orange-400 text-xs font-medium">60% pending</span>
+                <span className="text-orange-400 text-xs font-medium">{stats.renewalPercentage}% pending</span>
               </div>
               <div className="flex space-x-1 mb-3">
                 {Array.from({ length: 20 }, (_, i) => (
                   <div
                     key={i}
                     className={`h-8 w-2 rounded-sm ${
-                      i < 12 ? 'bg-orange-500' : 'bg-gray-700'
+                      i < Math.round((stats.renewalPercentage / 100) * 20) ? 'bg-orange-500' : 'bg-gray-700'
                     }`}
                   />
                 ))}
@@ -365,14 +385,14 @@ export default function ContractsPage() {
             <div className="mb-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-gray-400 text-xs">Risk Level</span>
-                <span className="text-red-400 text-xs font-medium">25% high risk</span>
+                <span className="text-red-400 text-xs font-medium">{stats.highRiskPercentage}% high risk</span>
               </div>
               <div className="flex space-x-1 mb-3">
                 {Array.from({ length: 20 }, (_, i) => (
                   <div
                     key={i}
                     className={`h-8 w-2 rounded-sm ${
-                      i < 5 ? 'bg-red-500' : 'bg-gray-700'
+                      i < Math.round((stats.highRiskPercentage / 100) * 20) ? 'bg-red-500' : 'bg-gray-700'
                     }`}
                   />
                 ))}
