@@ -6,7 +6,6 @@ export default function Topbar() {
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const profileRef = useRef<HTMLDivElement>(null)
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
@@ -29,21 +28,13 @@ export default function Topbar() {
 
   return (
     <div className="flex items-center space-x-4">
-      {/* Notifications */}
-      <button className="p-2 text-gray-400 hover:text-gray-300 hover:bg-gray-700 rounded-lg transition-colors">
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-5 5v-5z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.5 9a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" />
-        </svg>
-      </button>
-
       {/* Profile Dropdown */}
       <div className="relative" ref={profileRef}>
         <button
           onClick={() => setIsProfileOpen(!isProfileOpen)}
-          className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 transition-colors"
+          className="flex items-center space-x-3 p-2 rounded-lg hover:bg-[#1a1d35] transition-colors"
         >
-          <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+          <div className="w-9 h-9 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full flex items-center justify-center shadow-lg">
             <span className="text-white text-sm font-medium">
               {user?.username ? getInitials(user.username) : 'U'}
             </span>
@@ -64,34 +55,34 @@ export default function Topbar() {
 
         {/* Dropdown Menu */}
         {isProfileOpen && (
-          <div className="absolute right-0 mt-2 w-56 bg-gray-800 rounded-lg shadow-xl border border-gray-700 py-2 z-50">
-            <div className="px-4 py-3 border-b border-gray-700">
+          <div className="absolute right-0 mt-2 w-56 bg-[#1a1d35] rounded-lg shadow-xl border border-[#2a2d47] py-2 z-50">
+            <div className="px-4 py-3 border-b border-[#2a2d47]">
               <div className="text-sm font-medium text-white">{user?.username}</div>
               <div className="text-xs text-gray-400">{user?.email || 'admin@contractdash.com'}</div>
             </div>
             
-            <button className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white flex items-center space-x-2 transition-colors">
+            <button className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-[#2a2d47] hover:text-white flex items-center space-x-2 transition-colors">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
               <span>Profile Settings</span>
             </button>
             
-            <button className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white flex items-center space-x-2 transition-colors">
+            <button className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-[#2a2d47] hover:text-white flex items-center space-x-2 transition-colors">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
               </svg>
               <span>Preferences</span>
             </button>
             
-            <button className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white flex items-center space-x-2 transition-colors">
+            <button className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-[#2a2d47] hover:text-white flex items-center space-x-2 transition-colors">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span>Help & Support</span>
             </button>
             
-            <div className="border-t border-gray-700 mt-2 pt-2">
+            <div className="border-t border-[#2a2d47] mt-2 pt-2">
               <button
                 onClick={logout}
                 className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-900/20 hover:text-red-300 flex items-center space-x-2 transition-colors"

@@ -1,16 +1,15 @@
-import { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
 interface SidebarProps {
-  activeTab: string
-  onTabChange: (tab: string) => void
 }
 
-export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false)
-
+export default function Sidebar({ }: SidebarProps) {
+  const location = useLocation()
+  
   const menuItems = [
     {
       id: 'contracts',
+      path: '/contracts',
       label: 'Contracts',
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -20,6 +19,7 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
     },
     {
       id: 'insights',
+      path: '/insights',
       label: 'Insights',
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -29,6 +29,7 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
     },
     {
       id: 'reports',
+      path: '/reports',
       label: 'Reports',
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,6 +39,7 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
     },
     {
       id: 'settings',
+      path: '/settings',
       label: 'Settings',
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,30 +50,21 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
     }
   ]
 
+  const isActive = (path: string) => {
+    return location.pathname === path || (path === '/contracts' && location.pathname === '/')
+  }
+
   return (
-    <div className={`bg-gray-800 border-r border-gray-700 transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'} flex flex-col h-full`}>
-      {/* Logo and Toggle */}
-      <div className="p-4 border-b border-gray-700">
-        <div className="flex items-center justify-between">
-          {!isCollapsed && (
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-lg">C</span>
-              </div>
-              <div>
-                <span className="font-bold text-white text-lg">ContractDash</span>
-                <div className="text-xs text-gray-400">Contract Management</div>
-              </div>
-            </div>
-          )}
-          <button
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-2 rounded-lg hover:bg-gray-700 transition-colors text-gray-400 hover:text-white"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+    <div className="bg-[#06070d] border-r border-[#2a2d47] w-64 flex flex-col h-full">
+      {/* Logo */}
+      <div className="p-3">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg">
+            <span className="text-white font-bold text-lg">C</span>
+          </div>
+          <div>
+            <span className="font-bold text-white text-lg">ContractDash</span>
+          </div>
         </div>
       </div>
 
@@ -80,33 +73,29 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
         <ul className="space-y-2">
           {menuItems.map((item) => (
             <li key={item.id}>
-              <button
-                onClick={() => onTabChange(item.id)}
+              <Link
+                to={item.path}
                 className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-left transition-all duration-200 ${
-                  activeTab === item.id
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg transform scale-105'
-                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                  isActive(item.path)
+                    ? 'bg-gradient-to-r from-purple-500 to-violet-600 text-white shadow-lg transform scale-105'
+                    : 'text-gray-300 hover:bg-[#1a1d35] hover:text-white'
                 }`}
               >
-                <span className={`${activeTab === item.id ? 'text-white' : 'text-gray-400'}`}>
+                <span className={`${isActive(item.path) ? 'text-white' : 'text-gray-400'}`}>
                   {item.icon}
                 </span>
-                {!isCollapsed && (
-                  <span className="font-medium text-sm">{item.label}</span>
-                )}
-              </button>
+                <span className="font-medium text-sm">{item.label}</span>
+              </Link>
             </li>
           ))}
         </ul>
       </nav>
 
       {/* User Section */}
-      {!isCollapsed && (
-        <div className="p-4 border-t border-gray-700">
-          <div className="text-xs text-gray-500 mb-2">Version 1.0.0</div>
-          <div className="text-xs text-gray-600">© 2024 ContractDash</div>
-        </div>
-      )}
+      <div className="p-4 border-t border-[#2a2d47]">
+        <div className="text-xs text-gray-500 mb-2">Version 1.0.0</div>
+        <div className="text-xs text-gray-600">© 2024 ContractDash</div>
+      </div>
     </div>
   )
 }

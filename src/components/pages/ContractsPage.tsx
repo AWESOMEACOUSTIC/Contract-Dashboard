@@ -1,12 +1,14 @@
 import { useState, useMemo } from 'react'
+import { useOutletContext } from 'react-router-dom'
 import { useContracts } from '../../hooks/useContracts'
 import toast from 'react-hot-toast'
 
-interface ContractsPageProps {
-  searchQuery?: string
+interface OutletContext {
+  searchQuery: string
 }
 
-export default function ContractsPage({ searchQuery = '' }: ContractsPageProps) {
+export default function ContractsPage() {
+  const { searchQuery = '' } = useOutletContext<OutletContext>()
   const { contracts, loading, error } = useContracts()
   const [currentPage, setCurrentPage] = useState(1)
   const [statusFilter, setStatusFilter] = useState<string>('all')
@@ -87,18 +89,18 @@ export default function ContractsPage({ searchQuery = '' }: ContractsPageProps) 
 
   const getRiskColor = (risk: string) => {
     switch (risk) {
-      case 'High': return 'bg-red-900/50 text-red-300 border-red-500/30'
-      case 'Medium': return 'bg-yellow-900/50 text-yellow-300 border-yellow-500/30'
-      case 'Low': return 'bg-green-900/50 text-green-300 border-green-500/30'
+      case 'High': return 'bg-red-700/50 text-red-100 border-red-700/30'
+      case 'Medium': return 'bg-yellow-700/50 text-yellow-100 border-yellow-700/30'
+      case 'Low': return 'bg-green-700/50 text-green-100 border-green-700/30'
       default: return 'bg-gray-700 text-gray-300 border-gray-500/30'
     }
   }
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Active': return 'bg-green-900/50 text-green-300 border-green-500/30'
-      case 'Renewal Due': return 'bg-orange-900/50 text-orange-300 border-orange-500/30'
-      case 'Expired': return 'bg-red-900/50 text-red-300 border-red-500/30'
+      case 'Active': return 'bg-green-700/50 text-green-100 border-green-700/30'
+      case 'Renewal Due': return 'bg-orange-700/50 text-orange-100 border-orange-700/30'
+      case 'Expired': return 'bg-red-700/50 text-red-100 border-red-700/30'
       case 'Draft': return 'bg-gray-700 text-gray-300 border-gray-500/30'
       default: return 'bg-gray-700 text-gray-300 border-gray-500/30'
     }
@@ -152,89 +154,241 @@ export default function ContractsPage({ searchQuery = '' }: ContractsPageProps) 
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-gray-800 border border-gray-700 rounded-xl p-6 hover:bg-gray-750 transition-colors">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-gray-400 text-sm font-medium">Total Contracts</p>
-              <p className="text-3xl font-bold text-white mt-2">{stats.total}</p>
-              <p className="text-green-400 text-sm mt-2 flex items-center">
-                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-                +12% vs last month
-              </p>
+        {/* Total Contracts Card */}
+        <div className="relative bg-gradient-to-br from-[#1a1d35] to-[#151629] rounded-2xl p-6 overflow-hidden border border-[#2a2d47]">
+          {/* Curved Background Pattern */}
+          <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 200">
+            <defs>
+              <linearGradient id="cardGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.1"/>
+                <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.2"/>
+              </linearGradient>
+            </defs>
+            <path 
+              d="M0,100 Q100,20 200,80 T400,60 L400,200 L0,200 Z" 
+              fill="url(#cardGradient1)" 
+              opacity="0.8"
+            />
+            <path 
+              d="M0,120 Q150,40 300,90 T400,70 L400,200 L0,200 Z" 
+              fill="#8b5cf6" 
+              opacity="0.05"
+            />
+          </svg>
+          
+          <div className="relative z-10">
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <p className="text-gray-400 text-sm font-medium tracking-wide uppercase">Total Contracts</p>
+                <p className="text-4xl font-bold text-white mt-2" style={{fontFamily: 'Monument Grotesk, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'}}>{stats.total}</p>
+              </div>
+              <div className="text-green-400 text-sm flex items-center">
+                <span className="text-green-400">+12%</span>
+              </div>
             </div>
-            <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-              <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-gray-800 border border-gray-700 rounded-xl p-6 hover:bg-gray-750 transition-colors">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-gray-400 text-sm font-medium">Active Contracts</p>
-              <p className="text-3xl font-bold text-white mt-2">{stats.active}</p>
-              <p className="text-green-400 text-sm mt-2 flex items-center">
-                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-                +8% vs last month
-              </p>
-            </div>
-            <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
-              <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-gray-800 border border-gray-700 rounded-xl p-6 hover:bg-gray-750 transition-colors">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-gray-400 text-sm font-medium">Renewal Due</p>
-              <p className="text-3xl font-bold text-white mt-2">{stats.renewalDue}</p>
-              <p className="text-orange-400 text-sm mt-2 flex items-center">
-                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Requires attention
-              </p>
-            </div>
-            <div className="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center">
-              <svg className="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+            
+            {/* Progress Bars */}
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-gray-400 text-xs">Growth Rate</span>
+                <span className="text-orange-400 text-xs font-medium">75% maturity</span>
+              </div>
+              <div className="flex space-x-1 mb-3">
+                {Array.from({ length: 20 }, (_, i) => (
+                  <div
+                    key={i}
+                    className={`h-8 w-2 rounded-sm ${
+                      i < 15 ? 'bg-orange-500' : 'bg-gray-700'
+                    }`}
+                  />
+                ))}
+              </div>
+              <div className="text-orange-400 text-sm">
+                <span>Unlock at</span>
+                <br />
+                <span className="text-orange-300">December 20, 2025</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="bg-gray-800 border border-gray-700 rounded-xl p-6 hover:bg-gray-750 transition-colors">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-gray-400 text-sm font-medium">High Risk</p>
-              <p className="text-3xl font-bold text-white mt-2">{stats.highRisk}</p>
-              <p className="text-red-400 text-sm mt-2 flex items-center">
-                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-                Needs review
-              </p>
+        {/* Active Contracts Card */}
+        <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 overflow-hidden">
+          {/* Curved Background Pattern */}
+          <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 200">
+            <defs>
+              <linearGradient id="cardGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#059669" stopOpacity="0.2"/>
+                <stop offset="100%" stopColor="#047857" stopOpacity="0.3"/>
+              </linearGradient>
+            </defs>
+            <path 
+              d="M0,80 Q120,10 240,50 T400,40 L400,200 L0,200 Z" 
+              fill="url(#cardGradient2)" 
+              opacity="0.6"
+            />
+            <path 
+              d="M0,100 Q160,30 320,70 T400,50 L400,200 L0,200 Z" 
+              fill="#10B981" 
+              opacity="0.05"
+            />
+          </svg>
+          
+          <div className="relative z-10">
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <p className="text-gray-400 text-sm font-medium tracking-wide uppercase">Active Contracts</p>
+                <p className="text-4xl font-bold text-white mt-2" style={{fontFamily: 'Monument Grotesk, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'}}>{stats.active}</p>
+              </div>
+              <div className="text-green-400 text-sm flex items-center">
+                <span className="text-green-400">+8%</span>
+              </div>
             </div>
-            <div className="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center">
-              <svg className="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
+            
+            {/* Progress Bars */}
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-gray-400 text-xs">Active Rate</span>
+                <span className="text-green-400 text-xs font-medium">88% active</span>
+              </div>
+              <div className="flex space-x-1 mb-3">
+                {Array.from({ length: 20 }, (_, i) => (
+                  <div
+                    key={i}
+                    className={`h-8 w-2 rounded-sm ${
+                      i < 17 ? 'bg-green-500' : 'bg-gray-700'
+                    }`}
+                  />
+                ))}
+              </div>
+              <div className="text-green-400 text-sm">
+                <span>Performance</span>
+                <br />
+                <span className="text-green-300">Excellent Status</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Renewal Due Card */}
+        <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 overflow-hidden">
+          {/* Curved Background Pattern */}
+          <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 200">
+            <defs>
+              <linearGradient id="cardGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#D97706" stopOpacity="0.2"/>
+                <stop offset="100%" stopColor="#B45309" stopOpacity="0.3"/>
+              </linearGradient>
+            </defs>
+            <path 
+              d="M0,90 Q100,25 200,65 T400,55 L400,200 L0,200 Z" 
+              fill="url(#cardGradient3)" 
+              opacity="0.6"
+            />
+            <path 
+              d="M0,110 Q140,35 280,75 T400,65 L400,200 L0,200 Z" 
+              fill="#F59E0B" 
+              opacity="0.05"
+            />
+          </svg>
+          
+          <div className="relative z-10">
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <p className="text-gray-400 text-sm font-medium tracking-wide uppercase">Renewal Due</p>
+                <p className="text-4xl font-bold text-white mt-2" style={{fontFamily: 'Monument Grotesk, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'}}>{stats.renewalDue}</p>
+              </div>
+              <div className="text-orange-400 text-sm flex items-center">
+                <span className="text-orange-400">Alert</span>
+              </div>
+            </div>
+            
+            {/* Progress Bars */}
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-gray-400 text-xs">Renewal Status</span>
+                <span className="text-orange-400 text-xs font-medium">60% pending</span>
+              </div>
+              <div className="flex space-x-1 mb-3">
+                {Array.from({ length: 20 }, (_, i) => (
+                  <div
+                    key={i}
+                    className={`h-8 w-2 rounded-sm ${
+                      i < 12 ? 'bg-orange-500' : 'bg-gray-700'
+                    }`}
+                  />
+                ))}
+              </div>
+              <div className="text-orange-400 text-sm">
+                <span>Action Required</span>
+                <br />
+                <span className="text-orange-300">Next 30 Days</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* High Risk Card */}
+        <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 overflow-hidden">
+          {/* Curved Background Pattern */}
+          <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 200">
+            <defs>
+              <linearGradient id="cardGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#DC2626" stopOpacity="0.2"/>
+                <stop offset="100%" stopColor="#B91C1C" stopOpacity="0.3"/>
+              </linearGradient>
+            </defs>
+            <path 
+              d="M0,85 Q110,15 220,55 T400,45 L400,200 L0,200 Z" 
+              fill="url(#cardGradient4)" 
+              opacity="0.6"
+            />
+            <path 
+              d="M0,105 Q150,25 300,65 T400,55 L400,200 L0,200 Z" 
+              fill="#EF4444" 
+              opacity="0.05"
+            />
+          </svg>
+          
+          <div className="relative z-10">
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <p className="text-gray-400 text-sm font-medium tracking-wide uppercase">High Risk</p>
+                <p className="text-4xl font-bold text-white mt-2" style={{fontFamily: 'Monument Grotesk, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'}}>{stats.highRisk}</p>
+              </div>
+              <div className="text-red-400 text-sm flex items-center">
+                <span className="text-red-400">Critical</span>
+              </div>
+            </div>
+            
+            {/* Progress Bars */}
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-gray-400 text-xs">Risk Level</span>
+                <span className="text-red-400 text-xs font-medium">25% high risk</span>
+              </div>
+              <div className="flex space-x-1 mb-3">
+                {Array.from({ length: 20 }, (_, i) => (
+                  <div
+                    key={i}
+                    className={`h-8 w-2 rounded-sm ${
+                      i < 5 ? 'bg-red-500' : 'bg-gray-700'
+                    }`}
+                  />
+                ))}
+              </div>
+              <div className="text-red-400 text-sm">
+                <span>Review Required</span>
+                <br />
+                <span className="text-red-300">Immediate Action</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Contracts Table */}
-      <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden">
+      <div className="bg-[#181820] border border-gray-700 rounded-xl overflow-hidden">
         {/* Table Header with Filters */}
         <div className="p-6 border-b border-gray-700">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
@@ -248,7 +402,7 @@ export default function ContractsPage({ searchQuery = '' }: ContractsPageProps) 
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className="px-4 py-2 bg-[#323137cc] border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
               >
                 <option value="all">All Status</option>
                 <option value="Active">Active</option>
@@ -260,20 +414,13 @@ export default function ContractsPage({ searchQuery = '' }: ContractsPageProps) 
               <select
                 value={riskFilter}
                 onChange={(e) => setRiskFilter(e.target.value)}
-                className="px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className="px-4 py-2 bg-[#323137cc] border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
               >
                 <option value="all">All Risk Levels</option>
                 <option value="Low">Low Risk</option>
                 <option value="Medium">Medium Risk</option>
                 <option value="High">High Risk</option>
               </select>
-
-              <button className="px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-300 hover:text-white hover:bg-gray-600 transition-colors flex items-center space-x-2">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z" />
-                </svg>
-                <span>Filter</span>
-              </button>
             </div>
           </div>
         </div>
@@ -305,7 +452,7 @@ export default function ContractsPage({ searchQuery = '' }: ContractsPageProps) 
           <>
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-700/50 border-b border-gray-600">
+                <thead className="bg-[#323137cc] border-b border-gray-600">
                   <tr>
                     <th 
                       className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-600/50 transition-colors"

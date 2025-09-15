@@ -1,34 +1,33 @@
 import { useState } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import Sidebar from './Sidebar'
 import Topbar from './Topbar'
-import ContractsPage from '../pages/ContractsPage'
-import InsightsPage from '../pages/InsightsPage'
-import ReportsPage from '../pages/ReportsPage'
-import SettingsPage from '../pages/SettingsPage'
 
 export default function DashboardLayout() {
-  const [activeTab, setActiveTab] = useState('contracts')
   const [searchQuery, setSearchQuery] = useState('')
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const location = useLocation()
 
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'contracts':
-        return <ContractsPage searchQuery={searchQuery} />
-      case 'insights':
-        return <InsightsPage />
-      case 'reports':
-        return <ReportsPage />
-      case 'settings':
-        return <SettingsPage />
+  // Dynamic placeholder text based on current page
+  const getSearchPlaceholder = () => {
+    switch (location.pathname) {
+      case '/contracts':
+      case '/':
+        return 'Search contracts...'
+      case '/insights':
+        return 'Search insights...'
+      case '/reports':
+        return 'Search reports...'
+      case '/settings':
+        return 'Search settings...'
       default:
-        return <ContractsPage searchQuery={searchQuery} />
+        return 'Search...'
     }
   }
 
   return (
-    <div className="h-screen bg-gray-900 flex overflow-hidden">
+    <div className="h-screen bg-[#0a0b1e] flex overflow-hidden">
       {/* Toast Notifications */}
       <Toaster
         position="top-right"
@@ -68,16 +67,13 @@ export default function DashboardLayout() {
       <div className={`fixed inset-y-0 left-0 z-50 w-64 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
-        <Sidebar activeTab={activeTab} onTabChange={(tab) => {
-          setActiveTab(tab)
-          setSidebarOpen(false) // Close sidebar on mobile after selection
-        }} />
+        <Sidebar />
       </div>
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Topbar with mobile menu button */}
-        <div className="bg-gray-800 border-b border-gray-700 px-4 lg:px-6 py-4">
+        <div className="bg-[#06070d] border-b border-[#2a2d47] px-4 lg:px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Mobile menu button */}
             <button
@@ -89,31 +85,28 @@ export default function DashboardLayout() {
               </svg>
             </button>
 
-            {/* Search Bar for Contracts Page */}
-            {activeTab === 'contracts' && (
-              <div className="flex-1 max-w-md mx-4">
-                <div className="relative">
-                  <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                  <input
-                    type="text"
-                    placeholder="Search contracts..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm text-white placeholder-gray-400"
-                  />
-                </div>
+            <div className="flex-1 max-w-md mx-4">
+              <div className="relative">
+                <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input
+                  type="text"
+                  placeholder={getSearchPlaceholder()}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 bg-[#06070d] border border-[#2a2d47] rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-sm text-white placeholder-gray-400"
+                />
               </div>
-            )}
+            </div>
 
             <Topbar />
           </div>
         </div>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto bg-gray-900 p-6">
-          {renderContent()}
+        <main className="flex-1 overflow-y-auto bg-[#06070d] p-6">
+          <Outlet context={{ searchQuery }} />
         </main>
       </div>
     </div>

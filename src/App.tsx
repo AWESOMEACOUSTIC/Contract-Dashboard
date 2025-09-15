@@ -1,9 +1,24 @@
-import Login_Signup from "./components/auth/Login_SIgnup"
-import Dashboard from "./components/pages/Dashboard"
+import { Outlet, useNavigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from "./contexts/AuthContext"
+import { useEffect } from 'react'
 
 function AppContent() {
   const { isAuthenticated, isLoading } = useAuth()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (isAuthenticated) {
+        // If authenticated and on root or auth route, redirect to contracts
+        if (location.pathname === '/' || location.pathname === '/auth') {
+          navigate('/contracts', { replace: true })
+        }
+      } else {
+        // If not authenticated, redirect to auth
+        navigate('/auth', { replace: true })
+      }
+    }
+  }, [isAuthenticated, isLoading, navigate])
 
   if (isLoading) {
     return (
@@ -16,15 +31,7 @@ function AppContent() {
     )
   }
 
-  if (isAuthenticated) {
-    return <Dashboard />
-  }
-
-  return (
-    <main className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <Login_Signup />
-    </main>
-  )
+  return <Outlet />
 }
 
 function App() {
