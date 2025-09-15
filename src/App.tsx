@@ -1,12 +1,8 @@
+import Login_Signup from "./components/auth/Login_SIgnup"
 function App() {
   return (
-    // Main container
-    <main className="flex min-h-screen items-center justify-center bg-black">
-      
-      {/* The text content */}
-      <h1 className="text-5xl font-bold text-white md:text-8xl">
-        Hello, Aesh
-      </h1>
+    <main className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <Login_Signup />
 
     </main>
   );
