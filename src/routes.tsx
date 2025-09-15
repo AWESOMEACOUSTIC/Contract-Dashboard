@@ -5,6 +5,7 @@ import Login_Signup from './components/auth/Login_SIgnup'
 import DashboardLayout from './components/layout/DashboardLayout'
 import ContractsPage from './components/pages/ContractsPage'
 import ContractDetailPage from './components/pages/ContractDetailPage'
+import FileUploadPage from './components/pages/FileUploadPage'
 import InsightsPage from './components/pages/InsightsPage'
 import ReportsPage from './components/pages/ReportsPage'
 import SettingsPage from './components/pages/SettingsPage'
@@ -42,6 +43,10 @@ const routes: RouteObject[] = [
               {
                 path: 'contracts/:id',
                 element: <ContractDetailPage />
+              },
+              {
+                path: 'file-upload',
+                element: <FileUploadPage />
               },
               {
                 path: 'insights',
