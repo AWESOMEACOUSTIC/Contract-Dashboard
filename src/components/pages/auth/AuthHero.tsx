@@ -2,7 +2,7 @@ import videoBackground from "../../../assets/Smooth Gradient.mp4"
 
 export default function AuthHero() {
   return (
-    <div className="w-full lg:w-[34.15vw] p-12 flex flex-col justify-between relative overflow-hidden h-full">
+    <div className="hidden lg:flex w-full lg:w-[34.15vw] p-12 flex-col justify-between relative overflow-hidden h-full">
       {/* Video Background */}
       <video
         autoPlay
