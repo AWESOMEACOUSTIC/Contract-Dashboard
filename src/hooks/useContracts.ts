@@ -2,24 +2,95 @@ import { useState, useEffect } from 'react'
 import { contractService } from '../services/contractService'
 import type { Contract, ContractListItem } from '../services/contractService'
 
-// Hook for fetching all contracts
+// Simple in-memory cache for contracts
+interface ContractsCache {
+  data: ContractListItem[] | null
+  timestamp: number
+  loading: boolean
+}
+
+// Cache duration: 5 minutes
+const CACHE_DURATION = 5 * 60 * 1000
+
+// Module-level cache
+let contractsCache: ContractsCache = {
+  data: null,
+  timestamp: 0,
+  loading: false
+}
+
+// Cache subscribers for real-time updates
+const cacheSubscribers = new Set<() => void>()
+
+const notifySubscribers = () => {
+  cacheSubscribers.forEach(callback => callback())
+}
+
+const isCacheValid = () => {
+  return contractsCache.data !== null && 
+         (Date.now() - contractsCache.timestamp) < CACHE_DURATION
+}
+
+// Hook for fetching all contracts with caching
 export function useContracts() {
-  const [contracts, setContracts] = useState<ContractListItem[]>([])
-  const [loading, setLoading] = useState(true)
+  const [contracts, setContracts] = useState<ContractListItem[]>(contractsCache.data || [])
+  const [loading, setLoading] = useState(contractsCache.loading || !isCacheValid())
   const [error, setError] = useState<string | null>(null)
 
-  const fetchContracts = async () => {
+  const fetchContracts = async (force = false) => {
+    // If cache is valid and not forced, use cached data
+    if (isCacheValid() && !force) {
+      setContracts(contractsCache.data!)
+      setLoading(false)
+      return
+    }
+
+    // Prevent multiple simultaneous fetches
+    if (contractsCache.loading && !force) {
+      setLoading(true)
+      return
+    }
+
     try {
+      contractsCache.loading = true
       setLoading(true)
       setError(null)
+      notifySubscribers() // Notify other components about loading state
+      
       const data = await contractService.getContracts()
+      
+      // Update cache
+      contractsCache.data = data
+      contractsCache.timestamp = Date.now()
+      contractsCache.loading = false
+      
       setContracts(data)
+      notifySubscribers() // Notify other components about new data
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch contracts')
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch contracts'
+      setError(errorMessage)
+      contractsCache.loading = false
+      notifySubscribers()
     } finally {
       setLoading(false)
     }
   }
+
+  // Subscribe to cache updates
+  useEffect(() => {
+    const updateFromCache = () => {
+      if (contractsCache.data) {
+        setContracts(contractsCache.data)
+      }
+      setLoading(contractsCache.loading)
+    }
+
+    cacheSubscribers.add(updateFromCache)
+    
+    return () => {
+      cacheSubscribers.delete(updateFromCache)
+    }
+  }, [])
 
   useEffect(() => {
     fetchContracts()
@@ -29,7 +100,7 @@ export function useContracts() {
     contracts,
     loading,
     error,
-    refetch: fetchContracts
+    refetch: () => fetchContracts(true) // Force refresh when explicitly requested
   }
 }
 

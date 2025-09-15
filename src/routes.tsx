@@ -4,6 +4,7 @@ import App from './App'
 import Login_Signup from './components/auth/Login_SIgnup'
 import DashboardLayout from './components/layout/DashboardLayout'
 import ContractsPage from './components/pages/ContractsPage'
+import ContractDetailPage from './components/pages/ContractDetailPage'
 import InsightsPage from './components/pages/InsightsPage'
 import ReportsPage from './components/pages/ReportsPage'
 import SettingsPage from './components/pages/SettingsPage'
@@ -37,6 +38,10 @@ const routes: RouteObject[] = [
               {
                 path: 'contracts',
                 element: <ContractsPage />
+              },
+              {
+                path: 'contracts/:id',
+                element: <ContractDetailPage />
               },
               {
                 path: 'insights',

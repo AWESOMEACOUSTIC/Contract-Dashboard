@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react'
-import { useOutletContext } from 'react-router-dom'
+import { useState, useMemo, useEffect } from 'react'
+import { useOutletContext, Link } from 'react-router-dom'
 import { useContracts } from '../../hooks/useContracts'
 import toast from 'react-hot-toast'
 
@@ -17,6 +17,11 @@ export default function ContractsPage() {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
 
   const rowsPerPage = 10
+
+  // Reset current page when filters change
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [statusFilter, riskFilter, searchQuery])
 
   // Show error toast when error occurs
   if (error) {
@@ -37,7 +42,7 @@ export default function ContractsPage() {
     const activePercentage = total > 0 ? Math.round((active / total) * 100) : 0
     const renewalPercentage = total > 0 ? Math.round((renewalDue / total) * 100) : 0
     const highRiskPercentage = total > 0 ? Math.round((highRisk / total) * 100) : 0
-    const totalGrowthPercentage = 75 // This could be calculated based on historical data
+    const totalGrowthPercentage = 75 
     
     return { 
       total, 
@@ -116,15 +121,20 @@ export default function ContractsPage() {
     }
   }
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'Active': return 'bg-green-700/50 text-green-100 border-green-700/30'
-      case 'Renewal Due': return 'bg-orange-700/50 text-orange-100 border-orange-700/30'
-      case 'Expired': return 'bg-red-700/50 text-red-100 border-red-700/30'
-      case 'Draft': return 'bg-gray-700 text-gray-300 border-gray-500/30'
-      default: return 'bg-gray-700 text-gray-300 border-gray-500/30'
-    }
+const getStatusColor = (status: string) => {
+  switch (status) {
+    case 'Active':
+      return 'bg-blue-700/50 text-blue-100 border-blue-700/30'
+    case 'Renewal Due':
+      return 'bg-purple-700/50 text-purple-100 border-purple-700/30'
+    case 'Expired':
+      return 'bg-rose-700/50 text-rose-100 border-rose-700/30'
+    case 'Draft':
+      return 'bg-slate-700/50 text-slate-300 border-slate-500/30'
+    default:
+      return 'bg-gray-700 text-gray-300 border-gray-500/30'
   }
+}
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -542,12 +552,15 @@ export default function ContractsPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right">
                         <div className="flex items-center justify-end space-x-2">
-                          <button className="p-2 text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 rounded-lg transition-colors">
+                          <Link 
+                            to={`/contracts/${contract.id}`}
+                            className="p-2 text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 rounded-lg transition-colors"
+                          >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                             </svg>
-                          </button>
+                          </Link>
                           <button className="p-2 text-gray-400 hover:text-gray-300 hover:bg-gray-500/10 rounded-lg transition-colors">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />

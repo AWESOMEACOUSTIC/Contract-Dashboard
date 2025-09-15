@@ -5,3 +5,5 @@ export {
   useContractsByStatus,
   useExpiringContracts
 } from './useContracts'
+
+export { useContractDetail } from './useContractDetail'
