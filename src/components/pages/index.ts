@@ -1,1 +1,7 @@
 export * from "./auth"
+export { default as Dashboard } from "./Dashboard"
+export { default as ContractsDashboard } from "./ContractsDashboard"
+export { default as ContractsPage } from "./ContractsPage"
+export { default as InsightsPage } from "./InsightsPage"
+export { default as ReportsPage } from "./ReportsPage"
+export { default as SettingsPage } from "./SettingsPage"

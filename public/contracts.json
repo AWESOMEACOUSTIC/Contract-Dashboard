@@ -1,0 +1,103 @@
+[
+  {
+    "id": "c1",
+    "name": "MSA 2025",
+    "parties": "Microsoft & ABC Corp",
+    "start": "2023-01-01",
+    "expiry": "2025-12-31",
+    "status": "Active",
+    "risk": "Medium",
+    "clauses": [
+      { "title": "Termination", "summary": "90 days notice period.", "confidence": 0.82 },
+      { "title": "Liability Cap", "summary": "12 months' fees limit.", "confidence": 0.87 },
+      { "title": "Data Protection", "summary": "GDPR compliance required.", "confidence": 0.95 },
+      { "title": "Payment Terms", "summary": "Net 30 days payment.", "confidence": 0.78 }
+    ],
+    "insights": [
+      { "risk": "High", "message": "Liability cap excludes data breach costs." },
+      { "risk": "Medium", "message": "Renewal auto-renews unless cancelled 60 days before expiry." },
+      { "risk": "Low", "message": "Standard termination clause with adequate notice period." }
+    ],
+    "evidence": [
+      { "source": "Section 12.2", "snippet": "Total liability limited to 12 months' fees.", "relevance": 0.91 },
+      { "source": "Section 8.1", "snippet": "Either party may terminate with 90 days written notice.", "relevance": 0.89 },
+      { "source": "Section 15.3", "snippet": "This agreement shall automatically renew for successive one-year terms.", "relevance": 0.85 }
+    ]
+  },
+  {
+    "id": "c2",
+    "name": "Network Services Agreement",
+    "parties": "TelNet & ABC Corp",
+    "start": "2023-05-15",
+    "expiry": "2025-10-10",
+    "status": "Renewal Due",
+    "risk": "High",
+    "clauses": [
+      { "title": "Service Level Agreement", "summary": "99.9% uptime guarantee.", "confidence": 0.92 },
+      { "title": "Termination for Cause", "summary": "30 days cure period.", "confidence": 0.88 },
+      { "title": "Intellectual Property", "summary": "Customer retains all IP rights.", "confidence": 0.85 },
+      { "title": "Confidentiality", "summary": "5-year confidentiality period.", "confidence": 0.90 }
+    ],
+    "insights": [
+      { "risk": "High", "message": "Contract expires in 25 days without renewal action." },
+      { "risk": "High", "message": "No force majeure clause for service interruptions." },
+      { "risk": "Medium", "message": "SLA penalties may not cover business losses." },
+      { "risk": "Low", "message": "Strong IP protection for customer assets." }
+    ],
+    "evidence": [
+      { "source": "Section 3.1", "snippet": "Provider guarantees 99.9% network uptime measured monthly.", "relevance": 0.94 },
+      { "source": "Section 7.2", "snippet": "Confidential information shall remain confidential for 5 years post-termination.", "relevance": 0.87 },
+      { "source": "Exhibit A", "snippet": "All customer data and configurations remain customer property.", "relevance": 0.92 }
+    ]
+  },
+  {
+    "id": "c3",
+    "name": "Software License Agreement",
+    "parties": "TechSoft Inc & ABC Corp",
+    "start": "2024-03-01",
+    "expiry": "2026-02-28",
+    "status": "Active",
+    "risk": "Low",
+    "clauses": [
+      { "title": "License Scope", "summary": "Enterprise-wide usage rights.", "confidence": 0.96 },
+      { "title": "Maintenance & Support", "summary": "24/7 support included.", "confidence": 0.89 },
+      { "title": "Limitation of Liability", "summary": "Limited to license fees paid.", "confidence": 0.91 },
+      { "title": "Audit Rights", "summary": "Annual compliance audits permitted.", "confidence": 0.84 }
+    ],
+    "insights": [
+      { "risk": "Medium", "message": "Vendor has broad audit rights that could disrupt operations." },
+      { "risk": "Low", "message": "Comprehensive support coverage reduces operational risk." },
+      { "risk": "Low", "message": "Liability limitations are reasonable and mutual." }
+    ],
+    "evidence": [
+      { "source": "Section 2.1", "snippet": "License grants enterprise-wide usage for all subsidiaries.", "relevance": 0.96 },
+      { "source": "Section 5.3", "snippet": "Provider shall provide 24/7 technical support via phone and email.", "relevance": 0.88 },
+      { "source": "Section 9.1", "snippet": "Licensor may audit licensee's usage once per calendar year.", "relevance": 0.82 }
+    ]
+  },
+  {
+    "id": "c4",
+    "name": "Cloud Infrastructure Agreement",
+    "parties": "CloudTech Solutions & ABC Corp",
+    "start": "2024-01-15",
+    "expiry": "2027-01-14",
+    "status": "Active",
+    "risk": "Medium",
+    "clauses": [
+      { "title": "Data Security", "summary": "SOC 2 Type II compliance.", "confidence": 0.93 },
+      { "title": "Service Credits", "summary": "SLA credits for downtime.", "confidence": 0.86 },
+      { "title": "Data Portability", "summary": "Data export rights upon termination.", "confidence": 0.79 },
+      { "title": "Pricing Adjustments", "summary": "Annual CPI-based increases.", "confidence": 0.88 }
+    ],
+    "insights": [
+      { "risk": "Medium", "message": "Price increases tied to CPI without caps could become significant." },
+      { "risk": "Medium", "message": "Data portability clause lacks specific format requirements." },
+      { "risk": "Low", "message": "Strong security compliance reduces data breach risk." }
+    ],
+    "evidence": [
+      { "source": "Section 4.2", "snippet": "Provider maintains SOC 2 Type II certification for all data centers.", "relevance": 0.94 },
+      { "source": "Section 6.1", "snippet": "Pricing may be adjusted annually based on Consumer Price Index.", "relevance": 0.89 },
+      { "source": "Section 11.4", "snippet": "Customer data will be made available for export within 30 days of termination.", "relevance": 0.81 }
+    ]
+  }
+]
