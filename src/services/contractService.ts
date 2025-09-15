@@ -41,10 +41,76 @@ export interface ContractListItem {
 // Mock API service class
 class ContractService {
   private baseUrl = '/contracts.json'
+  private contractsCache: Contract[] | null = null
 
   // Simulate API delay
   private delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms))
+  }
+
+  // Load contracts from JSON file
+  private async loadContracts(): Promise<Contract[]> {
+    if (this.contractsCache) {
+      return this.contractsCache
+    }
+
+    try {
+      const response = await fetch(this.baseUrl)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
+      const contracts: Contract[] = await response.json()
+      this.contractsCache = contracts
+      return contracts
+    } catch (error) {
+      console.error('Error loading contracts:', error)
+      throw new Error('Failed to load contracts')
+    }
+  }
+
+  // Add a new contract to the cache
+  async addContract(contractData: Omit<ContractListItem, 'id'>): Promise<ContractListItem> {
+    try {
+      await this.delay(300) // Simulate network delay
+      
+      // Ensure contracts are loaded
+      await this.loadContracts()
+      
+      // Generate a unique ID
+      const newId = `c${Date.now()}`
+      const newContract: Contract = {
+        id: newId,
+        ...contractData,
+        start: new Date().toISOString().split('T')[0], // Today's date as start date
+        clauses: [], // Empty clauses array for new contracts
+        insights: [], // Empty insights array for new contracts
+        evidence: [] // Empty evidence array for new contracts
+      }
+      
+      // Add to cache
+      if (this.contractsCache) {
+        this.contractsCache.unshift(newContract) // Add to beginning of array
+      }
+      
+      // Return the list item version
+      return {
+        id: newContract.id,
+        name: newContract.name,
+        parties: newContract.parties,
+        expiry: newContract.expiry,
+        status: newContract.status,
+        risk: newContract.risk
+      }
+    } catch (error) {
+      console.error('Error adding contract:', error)
+      throw new Error('Failed to add contract')
+    }
+  }
+
+  // Clear the cache (useful for forcing refresh)
+  clearCache(): void {
+    this.contractsCache = null
   }
 
   // Fetch all contracts (GET /contracts)
@@ -52,12 +118,7 @@ class ContractService {
     try {
       await this.delay(500) // Simulate network delay
       
-      const response = await fetch(this.baseUrl)
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      
-      const contracts: Contract[] = await response.json()
+      const contracts = await this.loadContracts()
       
       // Return only list fields for the contracts list view
       return contracts.map(contract => ({
@@ -79,12 +140,7 @@ class ContractService {
     try {
       await this.delay(300) // Simulate network delay
       
-      const response = await fetch(this.baseUrl)
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      
-      const contracts: Contract[] = await response.json()
+      const contracts = await this.loadContracts()
       const contract = contracts.find(c => c.id === id)
       
       if (!contract) {

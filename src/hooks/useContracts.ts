@@ -76,6 +76,28 @@ export function useContracts() {
     }
   }
 
+  const addContract = async (contractData: Omit<ContractListItem, 'id'>) => {
+    try {
+      const newContract = await contractService.addContract(contractData)
+      
+      // Update cache with new contract
+      if (contractsCache.data) {
+        contractsCache.data = [newContract, ...contractsCache.data]
+        contractsCache.timestamp = Date.now()
+        setContracts(contractsCache.data)
+        notifySubscribers()
+      } else {
+        // If no cache, fetch all contracts
+        await fetchContracts(true)
+      }
+      
+      return newContract
+    } catch (error) {
+      console.error('Error adding contract:', error)
+      throw error
+    }
+  }
+
   // Subscribe to cache updates
   useEffect(() => {
     const updateFromCache = () => {
@@ -100,7 +122,8 @@ export function useContracts() {
     contracts,
     loading,
     error,
-    refetch: () => fetchContracts(true) // Force refresh when explicitly requested
+    refetch: () => fetchContracts(true), // Force refresh when explicitly requested
+    addContract // New method to add contracts
   }
 }
 

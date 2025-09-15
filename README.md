@@ -9,6 +9,7 @@ A modern, AI-powered contract management dashboard built with React and TypeScri
 - **📊 Dashboard Overview**: Real-time contract statistics with dynamic progress indicators
 - **🔍 Smart Search & Filtering**: Advanced filtering by status, risk level, and full-text search
 - **📄 Contract Details**: Comprehensive contract analysis with AI-powered insights
+- **➕ Create New Contracts**: Modal-based contract creation with form validation
 - **🤖 AI Insights**: Intelligent risk assessment and clause analysis
 - **📑 Evidence Panel**: Supporting documentation with relevance scoring
 - **🎨 Modern UI**: Dark theme with Apexify-inspired design system
@@ -195,6 +196,24 @@ const { searchQuery = '' } = useOutletContext<OutletContext>()
 - Added pagination to limit rendered items
 - Used efficient filtering and sorting algorithms
 - Implemented proper key props for list rendering
+
+### 9. **New Contract Creation Not Persisting**
+**Problem**: After adding a new contract through the modal, it wasn't showing up in the contract list because the data wasn't being added to the local cache.
+
+**Solution**: 
+- Updated `ContractService` to include in-memory caching with `addContract` method
+- Modified `useContracts` hook to include `addContract` function that updates the cache
+- Ensured new contracts are added to the beginning of the list with proper ID generation
+- Implemented real-time cache updates so all components reflect the new data immediately
+
+```typescript
+// Service method to add contracts to cache
+async addContract(contractData: Omit<ContractListItem, 'id'>): Promise<ContractListItem> {
+  const newContract = { id: `c${Date.now()}`, ...contractData }
+  this.contractsCache.unshift(newContract)
+  return newContract
+}
+```
 
 ## 📁 Project Structure
 
