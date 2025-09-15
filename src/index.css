@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* Custom scrollbar styles for evidence drawer */
 .scrollbar-thin {
   scrollbar-width: thin;
 }
@@ -24,7 +23,6 @@
   background: #6b7280;
 }
 
-/* Additional scrollbar utilities */
 .scrollbar-thumb-gray-600::-webkit-scrollbar-thumb {
   background: #4b5563;
 }

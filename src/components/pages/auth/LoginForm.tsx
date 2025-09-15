@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { SocialLoginButtons } from "../../auth/Scoial_Login"
 import { useAuth } from "../../../contexts/AuthContext"
 
 interface FormData {
@@ -54,21 +53,21 @@ export default function LoginForm({ formData, onInputChange }: LoginFormProps) {
     <form className="space-y-6" onSubmit={handleSubmit}>
       {/* Error Message */}
       {error && (
-        <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg">
+        <div className="p-3 text-sm text-red-300 bg-red-900/20 border border-red-700/50 rounded-lg">
           {error}
         </div>
       )}
 
       {/* Success Message */}
       {success && (
-        <div className="p-3 text-sm text-green-600 bg-green-50 border border-green-200 rounded-lg">
+        <div className="p-3 text-sm text-green-300 bg-green-900/20 border border-green-700/50 rounded-lg">
           {success}
         </div>
       )}
 
       {/* Name Field */}
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
           Name
         </label>
         <input
@@ -77,22 +76,22 @@ export default function LoginForm({ formData, onInputChange }: LoginFormProps) {
           placeholder="Enter your name"
           value={formData.name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => onInputChange("name", e.target.value)}
-          className="w-full h-12 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+          className="w-full h-12 px-4 bg-[#181820] border border-gray-700 rounded-lg focus:ring-2 focus:ring-[#c6a9f5] focus:border-transparent outline-none transition-all text-white placeholder-gray-400"
           disabled={isLoading}
         />
       </div>
 
       {/* Email Field */}
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-          Email address <span className="text-red-500">*</span>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+          Email address <span className="text-red-400">*</span>
         </label>
         <input
           id="email"
           type="email"
           value={formData.email}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => onInputChange("email", e.target.value)}
-          className="w-full h-12 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+          className="w-full h-12 px-4 bg-[#181820] border border-gray-700 rounded-lg focus:ring-2 focus:ring-[#c6a9f5] focus:border-transparent outline-none transition-all text-white placeholder-gray-400"
           disabled={isLoading}
           required
         />
@@ -101,10 +100,10 @@ export default function LoginForm({ formData, onInputChange }: LoginFormProps) {
       {/* Password Field */}
       <div>
         <div className="flex justify-between items-center mb-2">
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-            Password <span className="text-red-500">*</span>
+          <label htmlFor="password" className="block text-sm font-medium text-gray-300">
+            Password <span className="text-red-400">*</span>
           </label>
-          <button type="button" className="text-sm text-blue-600 hover:text-blue-700 font-medium">
+          <button type="button" className="text-sm text-[#c6a9f5] hover:text-[#d7c2f9] font-medium">
             Forgot Password?
           </button>
         </div>
@@ -113,7 +112,7 @@ export default function LoginForm({ formData, onInputChange }: LoginFormProps) {
           type="password"
           value={formData.password}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => onInputChange("password", e.target.value)}
-          className="w-full h-12 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+          className="w-full h-12 px-4 bg-[#181820] border border-gray-700 rounded-lg focus:ring-2 focus:ring-[#c6a9f5] focus:border-transparent outline-none transition-all text-white placeholder-gray-400"
           disabled={isLoading}
           required
           placeholder="Use 'test123' for demo"
@@ -127,15 +126,15 @@ export default function LoginForm({ formData, onInputChange }: LoginFormProps) {
           type="checkbox"
           checked={formData.agreeToTerms}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => onInputChange("agreeToTerms", e.target.checked)}
-          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+          className="w-4 h-4 text-[#c6a9f5] bg-[#181820] border-gray-700 rounded focus:ring-[#c6a9f5] focus:ring-2"
           disabled={isLoading}
         />
-        <label htmlFor="terms" className="text-sm text-gray-700">
+        <label htmlFor="terms" className="text-sm text-gray-300">
           I agree to the{" "}
-          <button type="button" className="text-blue-600 hover:text-blue-700 font-medium">
+          <button type="button" className="text-[#c6a9f5] hover:text-[#d7c2f9] font-medium">
             Terms & Policy
           </button>
-          <span className="text-red-500"> *</span>
+          <span className="text-red-400"> *</span>
         </label>
       </div>
 
@@ -143,11 +142,13 @@ export default function LoginForm({ formData, onInputChange }: LoginFormProps) {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full h-12 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors flex items-center justify-center"
+        className="w-full h-12 bg-gradient-to-r from-[#a877f8] text-white to-[#4601b4] 
+        hover:from-[#b899f3] hover:to-[#cbb3f7] disabled:opacity-50 disabled:cursor-not-allowed hover:text-black font-bold
+        rounded-lg transition-colors flex items-center justify-center"
       >
         {isLoading ? (
           <>
-            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-[#0a0b1e]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
@@ -159,25 +160,12 @@ export default function LoginForm({ formData, onInputChange }: LoginFormProps) {
       </button>
 
       {/* Sign up link */}
-      <p className="text-center text-sm text-gray-600">
+      <p className="text-center text-sm text-gray-400">
         Have an account?{" "}
-        <button type="button" className="text-blue-600 hover:text-blue-700 font-medium">
+        <button type="button" className="text-[#c6a9f5] hover:text-[#d7c2f9] font-medium">
           Sign up
         </button>
       </p>
-
-      {/* Divider */}
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-300"></div>
-        </div>
-        <div className="relative flex justify-center text-sm">
-          <span className="px-2 bg-white text-gray-500">Or</span>
-        </div>
-      </div>
-
-      {/* Social Login */}
-      <SocialLoginButtons />
     </form>
   )
 }

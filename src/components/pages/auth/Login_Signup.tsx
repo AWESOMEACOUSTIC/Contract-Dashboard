@@ -17,8 +17,8 @@ export default function Login_Signup() {
   }
 
   return (
-    <div className="w-full max-w-[100%] shadow-xl overflow-hidden">
-      <div className="flex flex-col lg:flex-row min-h-[600px]">
+    <div className="w-full h-screen shadow-xl overflow-hidden">
+      <div className="flex flex-col lg:flex-row h-full">
         <AuthHero />
         <AuthForm formData={formData} onInputChange={handleInputChange} />
       </div>

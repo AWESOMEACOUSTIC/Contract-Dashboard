@@ -19,7 +19,7 @@ const routes: RouteObject[] = [
       {
         path: 'auth',
         element: (
-          <main className="min-h-screen bg-gray-100 flex items-center justify-center">
+          <main className="min-h-screen bg-[#0a0b1e]">
             <Login_Signup />
           </main>
         )
