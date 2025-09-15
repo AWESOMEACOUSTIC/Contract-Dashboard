@@ -88,12 +88,10 @@ class ContractService {
         evidence: [] // Empty evidence array for new contracts
       }
       
-      // Add to cache
       if (this.contractsCache) {
         this.contractsCache.unshift(newContract) // Add to beginning of array
       }
-      
-      // Return the list item version
+
       return {
         id: newContract.id,
         name: newContract.name,
@@ -108,19 +106,17 @@ class ContractService {
     }
   }
 
-  // Clear the cache (useful for forcing refresh)
   clearCache(): void {
     this.contractsCache = null
   }
 
-  // Fetch all contracts (GET /contracts)
+  //(GET /contracts)
   async getContracts(): Promise<ContractListItem[]> {
     try {
-      await this.delay(500) // Simulate network delay
+      await this.delay(500)
       
       const contracts = await this.loadContracts()
       
-      // Return only list fields for the contracts list view
       return contracts.map(contract => ({
         id: contract.id,
         name: contract.name,
@@ -135,10 +131,10 @@ class ContractService {
     }
   }
 
-  // Fetch single contract by ID (GET /contracts/:id)
+  //(GET /contracts/:id)
   async getContractById(id: string): Promise<Contract> {
     try {
-      await this.delay(300) // Simulate network delay
+      await this.delay(300) 
       
       const contracts = await this.loadContracts()
       const contract = contracts.find(c => c.id === id)
@@ -153,8 +149,6 @@ class ContractService {
       throw new Error(`Failed to fetch contract ${id}`)
     }
   }
-
-  // Search contracts by name or parties
   async searchContracts(query: string): Promise<ContractListItem[]> {
     try {
       const contracts = await this.getContracts()
@@ -210,8 +204,6 @@ class ContractService {
   }
 }
 
-// Create and export a singleton instance
 export const contractService = new ContractService()
 
-// Export the class as well for testing purposes
 export default ContractService

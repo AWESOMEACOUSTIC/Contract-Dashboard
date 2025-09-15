@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { type ContractListItem } from '../../services/contractService'
 
 interface NewContractModalProps {
@@ -82,7 +83,6 @@ export default function NewContractModal({ isOpen, onClose, onSubmit }: NewContr
 
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
-    // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: undefined }))
     }
@@ -109,17 +109,17 @@ export default function NewContractModal({ isOpen, onClose, onSubmit }: NewContr
 
   if (!isOpen) return null
 
-  return (
+  const modalContent = (
     <>
       {/* Backdrop with blur effect */}
       <div 
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300"
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] transition-opacity duration-300"
         onClick={handleClose}
       />
       
       {/* Modal */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div className="bg-[#1a1d35] border border-[#2a2d47] rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
+        <div className="bg-[#17181e] border border-[#3e415d] rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-[#2a2d47]">
             <div>
@@ -139,16 +139,16 @@ export default function NewContractModal({ isOpen, onClose, onSubmit }: NewContr
           {/* Form */}
           <form onSubmit={handleSubmit} className="p-6 space-y-6">
             {/* Contract Name */}
-            <div>
+            <div >
               <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                Contract Name *
+                Contract Name <span className='font-bold text-red-400'>*</span>
               </label>
               <input
                 type="text"
                 id="name"
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
-                className={`w-full px-4 py-3 bg-[#151629] border rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all ${
+                className={`w-full px-4 py-3 bg-[#27283f] border rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all ${
                   errors.name ? 'border-red-500' : 'border-[#2a2d47]'
                 }`}
                 placeholder="Enter contract name (e.g., MSA 2025)"
@@ -161,14 +161,14 @@ export default function NewContractModal({ isOpen, onClose, onSubmit }: NewContr
             {/* Parties */}
             <div>
               <label htmlFor="parties" className="block text-sm font-medium text-gray-300 mb-2">
-                Parties *
+                Parties <span className='font-bold text-red-400'>*</span>
               </label>
               <input
                 type="text"
                 id="parties"
                 value={formData.parties}
                 onChange={(e) => handleInputChange('parties', e.target.value)}
-                className={`w-full px-4 py-3 bg-[#151629] border rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all ${
+                className={`w-full px-4 py-3 bg-[#27283f] border rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all ${
                   errors.parties ? 'border-red-500' : 'border-[#2a2d47]'
                 }`}
                 placeholder="Enter parties (e.g., Microsoft & ABC Corp)"
@@ -181,14 +181,14 @@ export default function NewContractModal({ isOpen, onClose, onSubmit }: NewContr
             {/* Expiry Date */}
             <div>
               <label htmlFor="expiry" className="block text-sm font-medium text-gray-300 mb-2">
-                Expiry Date *
+                Expiry Date <span className='font-bold text-red-400'>*</span>
               </label>
               <input
                 type="date"
                 id="expiry"
                 value={formData.expiry}
                 onChange={(e) => handleInputChange('expiry', e.target.value)}
-                className={`w-full px-4 py-3 bg-[#151629] border rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all ${
+                className={`w-full px-4 py-3 bg-[#27283f] border rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all ${
                   errors.expiry ? 'border-red-500' : 'border-[#2a2d47]'
                 }`}
               />
@@ -197,7 +197,6 @@ export default function NewContractModal({ isOpen, onClose, onSubmit }: NewContr
               )}
             </div>
 
-            {/* Status and Risk - Two columns */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Status */}
               <div>
@@ -208,7 +207,7 @@ export default function NewContractModal({ isOpen, onClose, onSubmit }: NewContr
                   id="status"
                   value={formData.status}
                   onChange={(e) => handleInputChange('status', e.target.value as ContractListItem['status'])}
-                  className="w-full px-4 py-3 bg-[#151629] border border-[#2a2d47] rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  className="w-full px-4 py-3 bg-[#27283f] border border-[#2a2d47] rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                 >
                   <option value="Draft">Draft</option>
                   <option value="Active">Active</option>
@@ -231,7 +230,7 @@ export default function NewContractModal({ isOpen, onClose, onSubmit }: NewContr
                   id="risk"
                   value={formData.risk}
                   onChange={(e) => handleInputChange('risk', e.target.value as ContractListItem['risk'])}
-                  className="w-full px-4 py-3 bg-[#151629] border border-[#2a2d47] rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  className="w-full px-4 py-3 bg-[#27283f] border border-[#2a2d47] rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                 >
                   <option value="Low">Low</option>
                   <option value="Medium">Medium</option>
@@ -279,4 +278,7 @@ export default function NewContractModal({ isOpen, onClose, onSubmit }: NewContr
       </div>
     </>
   )
+
+  // Use React Portal to render the modal at the document body level
+  return createPortal(modalContent, document.body)
 }

@@ -9,12 +9,10 @@ function AppContent() {
   useEffect(() => {
     if (!isLoading) {
       if (isAuthenticated) {
-        // If authenticated and on root or auth route, redirect to contracts
         if (location.pathname === '/' || location.pathname === '/auth') {
           navigate('/contracts', { replace: true })
         }
       } else {
-        // If not authenticated, redirect to auth
         navigate('/auth', { replace: true })
       }
     }

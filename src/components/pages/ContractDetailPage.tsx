@@ -11,7 +11,6 @@ export default function ContractDetailPage() {
   const { contract, loading, error } = useContractDetail(id)
   const [isEvidenceDrawerOpen, setIsEvidenceDrawerOpen] = useState(false)
 
-  // Show error toast when error occurs
   if (error) {
     toast.error(error)
   }
